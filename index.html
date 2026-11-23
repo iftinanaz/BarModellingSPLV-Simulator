@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polypad Number Bars & Tiles - Visual Equivalence Simulator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- External Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-screen w-screen flex flex-col sm:flex-row bg-white text-slate-800">
+
+    <!-- LEFT SIDEBAR (DARK THEME - Polypad UI) -->
+    <aside class="w-full sm:w-80 sidebar-bg text-white flex flex-col shadow-2xl z-20 flex-shrink-0 h-2/5 sm:h-full">
+        
+        <!-- Sidebar Header -->
+        <div class="p-4 border-b border-slate-700/60 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center font-extrabold text-xs shadow-lg">
+                    1²³
+                </span>
+                <span class="font-bold text-lg tracking-wide sidebar-header-orange flex items-center gap-2">
+                    <i class="fa-solid fa-square-caret-down text-xs"></i> Numbers
+                </span>
+            </div>
+            <button onclick="clearCanvas()" class="text-xs text-slate-400 hover:text-rose-400 transition-colors flex items-center gap-1 bg-slate-800 hover:bg-slate-700 px-2.5 py-1.5 rounded-lg border border-slate-700" title="Bersihkan Canvas">
+                <i class="fa-solid fa-trash-can"></i> Reset
+            </button>
+        </div>
+
+        <!-- Sidebar Body Scrollable -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-5 no-scrollbar">
+            
+            <!-- Section 1: Standard Number Bars -->
+            <div class="space-y-3">
+                <div class="text-slate-200 font-semibold text-sm flex items-center justify-between">
+                    <span><i class="fa-solid fa-bars-staggered text-xs text-orange-400 mr-2"></i> Number Bars (1 - 10)</span>
+                </div>
+
+                <!-- 1-10 Preset Pair Buttons with Exact Unit Width Proportion -->
+                <div class="space-y-2">
+                    <!-- Row 1: 1 & 10 -->
+                    <div class="flex gap-2 items-center">
+                        <button onclick="spawnBar(1)" class="h-9 rounded-lg bar-color-1 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 10%;">1</button>
+                        <button onclick="spawnBar(10)" class="h-9 rounded-lg bar-color-10 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 90%;">10</button>
+                    </div>
+
+                    <!-- Row 2: 2 & 9 -->
+                    <div class="flex gap-2 items-center">
+                        <button onclick="spawnBar(2)" class="h-9 rounded-lg bar-color-2 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 20%;">2</button>
+                        <button onclick="spawnBar(9)" class="h-9 rounded-lg bar-color-9 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 80%;">9</button>
+                    </div>
+
+                    <!-- Row 3: 3 & 8 -->
+                    <div class="flex gap-2 items-center">
+                        <button onclick="spawnBar(3)" class="h-9 rounded-lg bar-color-3 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 30%;">3</button>
+                        <button onclick="spawnBar(8)" class="h-9 rounded-lg bar-color-8 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 70%;">8</button>
+                    </div>
+
+                    <!-- Row 4: 4 & 7 -->
+                    <div class="flex gap-2 items-center">
+                        <button onclick="spawnBar(4)" class="h-9 rounded-lg bar-color-4 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 40%;">4</button>
+                        <button onclick="spawnBar(7)" class="h-9 rounded-lg bar-color-7 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 60%;">7</button>
+                    </div>
+
+                    <!-- Row 5: 5 & 6 -->
+                    <div class="flex gap-2 items-center">
+                        <button onclick="spawnBar(5)" class="h-9 rounded-lg bar-color-5 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 50%;">5</button>
+                        <button onclick="spawnBar(6)" class="h-9 rounded-lg bar-color-6 flex items-center justify-center font-bold text-white shadow hover:brightness-110 active:scale-95 transition border border-white/30 text-sm" style="width: 50%;">6</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Custom Number & Variable Creator -->
+            <div class="pt-3 border-t border-slate-700/60 space-y-3">
+                <div class="text-slate-200 font-semibold text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-xs text-amber-400"></i> Generator Angka & Persamaan
+                </div>
+
+                <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 space-y-2.5">
+                    <div>
+                        <label class="text-[11px] font-semibold text-slate-400 block mb-1">Input Nilai / Persamaan:</label>
+                        <input type="text" id="custom-val-input" value="x + 5 = 9" placeholder="Contoh: 5, x + 5, x + 5 = 9" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-1.5 text-sm font-bold text-amber-300 focus:outline-none focus:border-amber-400 font-mono">
+                    </div>
+
+                    <div class="flex items-center gap-1.5">
+                        <label class="text-[11px] font-semibold text-slate-400">Warna Utama:</label>
+                        <input type="color" id="custom-color-picker" value="#f0821e" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0">
+                    </div>
+
+                    <button onclick="spawnCustomBarFromInput()" class="w-full py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-lg text-xs shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-layer-group"></i> Visualisasikan Kesejajaran
+                    </button>
+                </div>
+
+                <!-- Variable Quick Buttons -->
+                <div class="grid grid-cols-3 gap-2 pt-1">
+                    <button onclick="spawnBar('x', '#3f4756', 4)" class="h-8 rounded-lg bar-color-x flex items-center justify-center font-bold text-white shadow text-xs hover:brightness-110 active:scale-95 transition border border-white/30">x</button>
+                    <button onclick="spawnBar('y', '#0d9488', 5)" class="h-8 rounded-lg bar-color-y flex items-center justify-center font-bold text-white shadow text-xs hover:brightness-110 active:scale-95 transition border border-white/30">y</button>
+                    <button onclick="spawnBar('x²', '#3b82f6', 6)" class="h-8 rounded-lg bar-color-x2 flex items-center justify-center font-bold text-white shadow text-xs hover:brightness-110 active:scale-95 transition border border-white/30">x²</button>
+                </div>
+            </div>
+
+            <!-- Section 3: Scaffolding Pedagogis -->
+            <div class="pt-4 border-t border-slate-700/60 space-y-2">
+                <div class="text-xs font-bold tracking-wider text-amber-400 uppercase flex items-center gap-1.5 mb-2">
+                    <i class="fa-solid fa-graduation-cap"></i> Scaffolding Visual
+                </div>
+
+                <button id="btn-toggle-labels" onclick="toggleLabels()" class="w-full py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 rounded-lg text-xs font-semibold flex items-center justify-between transition-colors">
+                    <span><i class="fa-solid fa-eye mr-1.5"></i> Tampilkan Label</span>
+                    <span id="badge-labels" class="bg-emerald-500/20 text-emerald-400 text-[10px] px-1.5 py-0.5 rounded font-bold">Aktif</span>
+                </button>
+
+                <button id="btn-toggle-guides" onclick="toggleGuides()" class="w-full py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 rounded-lg text-xs font-semibold flex items-center justify-between transition-colors">
+                    <span><i class="fa-solid fa-align-center mr-1.5"></i> Garis Kesejajaran</span>
+                    <span id="badge-guides" class="bg-indigo-500/20 text-indigo-400 text-[10px] px-1.5 py-0.5 rounded font-bold">Aktif</span>
+                </button>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- MAIN CANVAS AREA -->
+    <main class="flex-1 flex flex-col h-3/5 sm:h-full relative overflow-hidden bg-slate-50">
+        
+        <!-- Header Controls & Equation Bar -->
+        <header class="h-16 border-b border-slate-200 bg-white/95 backdrop-blur px-6 flex items-center justify-between z-10 shadow-sm">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold text-slate-600 flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <i class="fa-solid fa-vector-square text-indigo-500"></i> Snap Grid: <span class="text-indigo-600 font-mono">40px</span>
+                </span>
+            </div>
+
+            <!-- Visual Balance Status Display -->
+            <div id="balance-pill" class="flex items-center gap-3 bg-indigo-50 border border-indigo-200 px-5 py-2 rounded-full shadow-inner transition-all duration-300">
+                <span id="balance-icon" class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </span>
+                <div class="flex items-center gap-2 font-mono">
+                    <span id="canvas-equation" class="text-sm font-extrabold text-indigo-950 tracking-wide">0 = 0</span>
+                    <span id="balance-status" class="text-xs font-bold text-indigo-600 bg-indigo-100/80 px-2 py-0.5 rounded-md">1 Baris</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Canvas Grid Surface -->
+        <div id="canvas" class="flex-1 polypad-canvas relative overflow-hidden cursor-crosshair">
+            <!-- Dynamic Alignment Vertical Guide Lines -->
+            <div id="guide-left" class="alignment-guide hidden"></div>
+            <div id="guide-right" class="alignment-guide hidden"></div>
+
+            <!-- Empty state placeholder -->
+            <div id="canvas-placeholder" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-slate-400 opacity-70">
+                <i class="fa-solid fa-hand-pointer text-4xl mb-2 animate-bounce text-indigo-400"></i>
+                <p class="text-sm font-medium">Klik atau masukkan persamaan seperti <code class="bg-slate-200 text-indigo-700 px-1.5 py-0.5 rounded font-bold">x + 5 = 9</code></p>
+                <p class="text-xs text-slate-400 mt-1">Bar-bar akan otomatis berjejer sejajar secara spasial</p>
+            </div>
+        </div>
+
+        <!-- Floating Selection Toolbar for Active Bar -->
+        <div id="bar-toolbar" class="hidden absolute top-16 left-1/2 -translate-x-1/2 glass-panel text-white rounded-xl shadow-2xl border border-slate-700/80 px-3.5 py-2 flex items-center gap-3 z-30 text-xs font-semibold">
+            <div class="flex items-center gap-1.5 pr-2.5 border-r border-slate-700">
+                <span class="text-xs text-slate-400">Label:</span>
+                <span id="selected-info" class="text-amber-400 font-extrabold text-sm">Bar 10</span>
+            </div>
+
+            <button onclick="editSelectedBarPrompt()" class="hover:text-amber-300 flex items-center gap-1 transition-colors px-1.5 py-1 rounded hover:bg-slate-800" title="Ubah Angka/Variabel">
+                <i class="fa-solid fa-pen"></i> Ubah Nilai
+            </button>
+
+            <button onclick="duplicateSelectedBar()" class="hover:text-indigo-300 flex items-center gap-1 transition-colors px-1.5 py-1 rounded hover:bg-slate-800" title="Duplikat Bar">
+                <i class="fa-solid fa-copy"></i> Duplikat
+            </button>
+
+            <button onclick="splitSelectedBar()" class="hover:text-emerald-300 flex items-center gap-1 transition-colors px-1.5 py-1 rounded hover:bg-slate-800" title="Pecah menjadi unit 1">
+                <i class="fa-solid fa-scissors"></i> Pecah
+            </button>
+
+            <div class="flex items-center gap-1 pl-1 border-l border-slate-700">
+                <input type="color" id="bar-color-change" title="Ubah Warna Bar" onchange="changeSelectedBarColor(this.value)" class="w-6 h-6 rounded cursor-pointer bg-transparent border-0">
+            </div>
+
+            <button onclick="deleteSelectedBar()" class="hover:text-rose-400 flex items-center gap-1 transition-colors px-1.5 py-1 rounded hover:bg-slate-800 text-rose-400" title="Hapus Bar">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- Modal Dialog for Editing Bar Values directly -->
+    <div id="edit-modal" class="hidden fixed inset-0 glass-panel flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 w-full max-w-sm text-white shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="font-bold text-sm text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Ubah Nilai & Variabel Bar
+                </h3>
+                <button onclick="closeEditModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs text-slate-300 font-semibold block mb-1">Nilai / Label Abstrak Baru:</label>
+                    <input type="text" id="modal-label-input" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-amber-300 font-bold focus:outline-none focus:border-amber-400" placeholder="Contoh: 5, x, y">
+                </div>
+
+                <div>
+                    <label class="text-xs text-slate-300 font-semibold block mb-1">Panjang Unit Spasial:</label>
+                    <input type="number" id="modal-units-input" min="0.5" step="0.5" max="50" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white font-bold focus:outline-none focus:border-amber-400">
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+                <button onclick="closeEditModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Batal</button>
+                <button onclick="applyEditModal()" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript Engine -->
+    <script src="script.js"></script>
+</body>
+</html>
